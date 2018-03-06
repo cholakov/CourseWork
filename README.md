@@ -14,5 +14,14 @@
 - Numpy >= 1.13.3
 - Matplotlib >= 2.1.1
 - Scikit-image >= 0.13.1
+- Jupyter
 - (Recommended) JupyterLab >= 0.31.0
 - ffmpeg (for visualisations)
+
+## Fixes
+### Error 1
+
+Reported on a Macbook pro with macOS 10.13.3. 
+
+- If you recieve a **"NOTIMPLEMENTEDERROR:"**, call the internal functions directly by prepending a _ . 
+So submarine.reset() becomes submarine.\_reset().
