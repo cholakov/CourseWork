@@ -14,7 +14,7 @@
 - Numpy >= 1.13.3
 - Matplotlib >= 2.1.1
 - Scikit-image >= 0.13.1
-- Jupyter
+- Jupyter >= 4.4.0
 - (Recommended) JupyterLab >= 0.31.0
 - ffmpeg (for visualisations)
 
