@@ -26,7 +26,7 @@ def simulate(env, init_state = None, f_name='value_iter', max_iter=1000):
         
     return env._get_video(interval=200, gif_path=f_name+'.mp4').to_html5_video()
 
-def draw_policy(env, p, dynamic=False):
+def draw_policy(env, p, dynamic=False, plain=False):
     
     if dynamic:
         action_mapping = {
@@ -50,14 +50,15 @@ def draw_policy(env, p, dynamic=False):
         #print(state, " : ", p)
         arrow_policy[state] = action_mapping[int(action)]
 
-        if env.maze[state] in (7,8):
-            arrow_policy[state] = '\u00B7'
-        if list(state) in env.goal_states: 
-            arrow_policy[state] = '\u2B24' #
-        if env.maze[state] == 4:
-            arrow_policy[state] =  'X'#'\u274C' #'\u24CD'
-        if env.maze[state] == 5:
-            arrow_policy[state] =  'U'#'\u24CD'
+        if not plain:
+            if env.maze[state] in (7,8):
+                arrow_policy[state] = '\u00B7'
+            if list(state) in env.goal_states: 
+                arrow_policy[state] = '\u2B24' #
+            if env.maze[state] == 4:
+                arrow_policy[state] =  'X'#'\u274C' #'\u24CD'
+            if env.maze[state] == 5:
+                arrow_policy[state] =  'U'#'\u24CD'
 
     return arrow_policy
 
