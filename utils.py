@@ -26,7 +26,7 @@ def simulate(env, init_state = None, f_name='value_iter', max_iter=1000):
         
     return env._get_video(interval=200, gif_path=f_name+'.mp4').to_html5_video()
 
-def draw_policy(env, p, dynamic=False, show_sky_edge=True, show_unchartered=True):
+def draw_policy(env, p, dynamic=False, show_sky_edge=False, show_unchartered=False):
     
     if dynamic:
         action_mapping = {
@@ -55,10 +55,10 @@ def draw_policy(env, p, dynamic=False, show_sky_edge=True, show_unchartered=True
         if env.maze[state] == 4:
                 arrow_policy[state] =  'X'#'\u274C' #'\u24CD'
 
-        if show_sky_edge:
+        if not show_sky_edge:
             if env.maze[state] in (7,8):
                 arrow_policy[state] = '\u00B7'
-        if show_unchartered:
+        if not show_unchartered:
             if env.maze[state] == 5:
                 arrow_policy[state] =  'U'#'\u24CD'
 

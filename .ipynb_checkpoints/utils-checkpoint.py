@@ -9,14 +9,14 @@ from gym import spaces
 from gym.utils import seeding
 
 def simulate(env, init_state = None, f_name='value_iter', max_iter=1000):
-    env.reset()
+    env._reset()
     if init_state != None:
         env.init_state = init_state
     state = env.init_state
     indx = 0
     while state not in env.goal_states:
-        env.step(env.policy[tuple(state)])
-        fig = env.render()
+        env._step(env.policy[tuple(state)])
+        fig = env._render()
         state = env.state
 
         if indx > max_iter:
@@ -26,7 +26,7 @@ def simulate(env, init_state = None, f_name='value_iter', max_iter=1000):
         
     return env._get_video(interval=200, gif_path=f_name+'.mp4').to_html5_video()
 
-def draw_policy(env, p, dynamic=False, plain=False):
+def draw_policy(env, p, dynamic=False, show_sky_edge=False, show_unchartered=False):
     
     if dynamic:
         action_mapping = {
@@ -50,13 +50,15 @@ def draw_policy(env, p, dynamic=False, plain=False):
         #print(state, " : ", p)
         arrow_policy[state] = action_mapping[int(action)]
 
-        if not plain:
+        if list(state) in env.goal_states: 
+            arrow_policy[state] = '\u2B24' #
+        if env.maze[state] == 4:
+                arrow_policy[state] =  'X'#'\u274C' #'\u24CD'
+
+        if not show_sky_edge:
             if env.maze[state] in (7,8):
                 arrow_policy[state] = '\u00B7'
-            if list(state) in env.goal_states: 
-                arrow_policy[state] = '\u2B24' #
-            if env.maze[state] == 4:
-                arrow_policy[state] =  'X'#'\u274C' #'\u24CD'
+        if not show_unchartered:
             if env.maze[state] == 5:
                 arrow_policy[state] =  'U'#'\u24CD'
 
